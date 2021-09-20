@@ -1,0 +1,5 @@
+En el caso del sobremuestreo, es decir, pasar de una imagen de menor cantidad de pixeles al tamaño de la matriz de leds RGB mayor, tenemos en consideración:
+- Por ejemplo si la imágen recibida es de 50*100 y la matriz de 100*150, se podrían restar las medidas de ancho respectivamente, y las de alto entre sí de la siguiente forma
+
+       ANCHO         ALTURA        |  Siendo así como el resultado de cada una de esas restas representa la información de la imágen ingresada deberá de 
+   100-50 = 50   y  150-100 = 50   |  distribuirse en esos pixeles sobrantes.
