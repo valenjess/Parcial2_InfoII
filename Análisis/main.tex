@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+
+\graphicspath{ {imagenes/} }
+\usepackage{cite}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{Parcial 2}
+            
+        \vspace{0.5cm}
+        \LARGE
+        
+            
+        \vspace{1.5cm}
+            
+        \textbf{Juan Esteban Garcia Durango\\
+            Jessica Valentina Gaviria Samboni }
+        \vfill
+            
+        \vspace{0.8cm}
+            
+        \Large
+        Despartamento de Ingeniería Electrónica y Telecomunicaciones\\
+        Universidad de Antioquia\\
+        Medellín\\
+        Septiembre de 2021
+            
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\section{Análisis del problema y consideraciones}\label{intro}
+\subsection{Redimensión de una imágen}
+
+  1.1 Submuestreo\\
+  Para el caso en que la imágen dada por el usuario sea de mayor dimensión que la matriz de leds, se dividen las dimensiones de ancho con ancho y largo con largo. Y de aquí se despliegan dos posibles casos:\\
+  
+  -Las medidas sean divisibles entre sí,es decir,no hay un residuo: El cociente de la división indicará la cantidad de pixeles de la imágen que se promediarán para generar la información de un único pixel en la matriz de leds.\\
+  Ejemplo:\\
+  Dimensiones imágen - 32*16\\
+  Dimensiones matriz - 8*8\\
+  
+  ANCHOS   : 32/8=4\\                 
+  
+  LARGOS  : 16/8=2\\
+  
+  De lo anterior se tiene, que de la imágen inicial se promediará la información cada 4 pixeles de ancho y 2 de largo; cada uno de esos valores RGB promedio representarán la información del color de un led RGB en la matriz.\\
+  
+  -Las medidas no sean divisibles entre sí: De igual forma que en el caso anterior el cociente de la división indica la cantidad de pixeles de la imágen que se promediarán para generar la información de un único pixel en la matriz de leds,pero en este caso se tiene un residuo el cual se distribuirá 1 a 1 por cada grupo de pixeles. \\
+  
+  Ejemplo:\\
+  
+  Dimensiones imágen - 25*20\\
+  Dimensiones matriz - 8*8\\
+  
+  LARGOS : \\
+  25 / 8  \\  
+   1 / 3 \\
+   
+   De lo anterior, Residuo = 1, Divisor = 3, Dividendo = 8\\
+   (Divisor-Residuo) = Cantidad de grupos de Cociente pixeles\\
+   (Cociente+1)= Cantidad de Pixeles de los grupos faltantes (Residuo)\\
+   
+   Para el elemplo:\\
+   (8-1) = 7 --  7 grupos de 3 pixeles\\
+   (3+1) = 4 --  1 grupo de 4 pixeles\\
+   
+   
+   ANCHOS : \\
+   20 / 8 \\
+   4 / 2 \\
+   Se realiza el mismo proceso que con el largo\\
+   Para el ejemplo:\\
+   (8-4) = 4  --  4 grupos de 2 pixeles\\
+   (2+1) = 3  --  4 grupos de 3 pixeles\\
+   
+   1.2 Sobremuestreo\\
+   Para el caso en el que la imágen dada por el usuario tenga medidas menores a las dimensiones de la matriz de leds. De igual forma que en el Submuestreo se debe de considerar en primer lugar si las medidas son divisibles entre sí (largo imágen con largo matriz y ancho por ancho )para así saber cada cuántos pixeles se debe distribuir los colores para completar la cantidad de pixeles requeridos.
+   
+   -En el caso de que sean divisibles las medidas:\\
+   Ejemplo :\\
+   Dimensiones imágen - 8*8\\
+   Dimensiones matriz - 32*16\\
+   
+   LARGO : 32/8 = 4\\
+   ANCHOS : 16/8 = 2\\
+   
+   Lo anterior indica que para cada pixel de la imágen se le adicionarán otros pixeles (resultado de la división) intermedios con los colores de transición entre pixel y pixel de la imágen. \\
+   \\
+   \subsection{Consideraciones}
+
+  2.1 En el caso de que la imágen cuente con una de sus medidas mayor y la otra menor a las de la matriz, se tendrá que submuestrear una de estas y sobremuestrear la otra.Ejemplo: Pasar de una imágen de 16*2 a una matriz 8*8\\
+  
+  2.2 El estandar de submuestreo y sobremuestreo es llegar a una matriz de 8*8\\
+  
+  2.3 Para el sobremuestreo determinar el color de los pixeles añadidos por medio de un degradado entre un color y otro .\\
+  2.4 El código implementará una clase llamada Redimensionar, en la cual se tendrán como métodos el ajuste de la imágen, es decir el ajuste de colores, cambio de tonalidades entre pixeles, y los métodos que permitirán pasar de ciertas dimensiones de la imágen a las requeridas en la matriz de RGB'S. 
+  
+   
+\section{Esquema donde describa las tareas que usted definió en el desarrollo del
+algoritmo.} \label{Descripción}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{Tareas.PNG}
+    \caption{Tareas}
+    \label{juego}
+\end{figure}
+
+\section{Algoritmo diseñado}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{algoritmo.PNG}
+    \caption{Algoritmo}
+    \label{juego}
+\end{figure}
+
+
+\section{Consideraciones a tener en cuenta en la implementación.}
+1. Correcta Redimensión de la imágen proporcionada por el usuario, por ejemplo si el tamaño de la imágen corresponde a un rectángulo, se pueda transformar en un cuadrado , lo cual corresponde a la matriz.\\
+
+
+\bibliographystyle{IEEEtran}
+
+\end{document}
+
