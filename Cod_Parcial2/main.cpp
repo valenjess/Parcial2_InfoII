@@ -48,9 +48,10 @@ int main()
     }
 
     else {
-        int contX = 0;
+
         for (int i =0;i < imag.width();i++){
             vector<int> RedX;
+            int contX = 0;
             for (int j =0; j < imag.height();j++){
 
                 for (int l=0;l<cantPixRepx;l++){
