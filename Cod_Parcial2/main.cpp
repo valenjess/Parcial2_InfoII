@@ -16,33 +16,79 @@ int main()
      */
 
 
-    string filename = "../Leer_Imagen/Imagenes/rick2.jpg";
-    QImage imag( filename.c_str() );
+   string filename = "../Leer_Imagen/Imagenes/rick2.jpg";
+   QImage imag( filename.c_str() );
 
-    unsigned int X = 20;
-    unsigned int Y = 20;
-
-    unsigned int ancho = imag.width();
+   unsigned int ancho = imag.width();
    unsigned int largo = imag.height();
 
-   unsigned int modulo = ancho%8;
+   unsigned int MAT = 8; //filas matriz
+   unsigned int Cmat = 8; //columnas matriz
+
+   unsigned int fil = ancho/MAT;
+   unsigned int colum = largo/Cmat;
+
+   vector <unsigned int> Reds;
+   vector <unsigned int> Green; //IMAGEN GRANDE
+   vector <unsigned int> Blue;
+
+   vector <unsigned int> Rmat;
+   vector <unsigned int> Gmat;  //INFO(REDUCIDA) MATRIZ LEDS
+   vector <unsigned int> Bmat;
 
 
-    cout<<modulo<<endl;
-    cout<<ancho<<endl;
-    cout<<largo <<endl;
-    cout<<"Rojo "<<imag.pixelColor(X,Y).red()<<endl;
-    cout<<"Verde "<<imag.pixelColor(X,Y).green()<<endl;
-    cout<<"Azul "<<imag.pixelColor(X,Y).blue()<<endl;
+    //VECTORES CON INFO RGB -->1 vector para cada color
+            for(int index=0; index<ancho; index++){
+                for(int elem=0; elem<largo; elem++){
 
-    for(int index=0; index<ancho; index++){
-        for(int elem=0; elem<largo; elem++){
-            cout<<index<<"-"<<elem;
-            cout<<"Rojo "<<imag.pixelColor(index,elem).red()<<"-";
-            cout<<"Verde "<<imag.pixelColor(index,elem).green()<<"-";
-            cout<<"Azul "<<imag.pixelColor(index,elem).blue()<<endl;
+                    Reds.push_back(imag.pixelColor(index,elem).red());
+                    Green.push_back(imag.pixelColor(index,elem).green());
+                    Blue.push_back(imag.pixelColor(index,elem).blue());
 
-        }
-    }
+                }
+            }
+
+            //VECTORES CON INFO RGB PARA MATRIZ -->PROMEDIO DE PIXELES
+            int pixelR=0, pixelG=0, pixelB=0;
+
+            int divisorProm = fil * colum;
+            int cont = 0;
+
+            for(int index=0; index<MAT; index++){
+                for(int elem=0; elem<fil; elem++){
+                    for(int i=0; i<colum; i++){
+                       pixelR+= Reds[elem*colum*(MAT)+(i+cont)];
+                       pixelG+= Green[elem*colum*(MAT)+(i+cont)];  //Acumuladores info pixeles
+                       pixelB+= Blue[elem*colum*(MAT)+(i+cont)];
+
+                    }
+
+                }
+                Rmat.push_back(pixelR/divisorProm);
+                Gmat.push_back(pixelG/divisorProm);
+                Bmat.push_back(pixelB/divisorProm);
+
+                pixelR=0;
+                pixelG=0;
+                pixelB=0;
+
+                cont=cont+colum;
+
+            }
+
+            for(int i=0; i<Rmat.size(); i++){
+                cout<<Rmat[i]<<endl;
+            }
+
+            cout<<"-----"<<endl;
+
+            for(int i=0; i<Rmat.size(); i++){
+                cout<<Gmat[i]<<endl;
+            }
+            cout<<"-----"<<endl;
+
+            for(int i=0; i<Rmat.size(); i++){
+                cout<<Bmat[i]<<endl;
+            }
     return 0;
 }
