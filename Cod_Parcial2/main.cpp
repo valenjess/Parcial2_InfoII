@@ -4,7 +4,7 @@
 using namespace std;
 
 int main()
-{
+{   ///MEDIDAS IMAGEN  DIVISIBLES ENTRE 16 (MEDIDAS MATRIZ RGB'S)
     // IDEA -- CREAR UN CONTENEDOR BIDIMENSIONAL- VECTOR- Y GUARDAR LA INFO RGB DE CADA PIXEL
     //MATRIZ RGB'S 8*8
     //SUBMUESTREO
@@ -99,5 +99,9 @@ int main()
             for(int i=0; i<Rmat.size(); i++){
                 cout<<Bmat[i]<<endl;
             }
+
+
+    ///MEDIDAS IMAGEN NO SON DIVISIBLES ENTRE 16(MEDIDAS MATRIZ RGB'S 16*16)
+     //Crear una variable modulo que represente los pixeles que sobran
     return 0;
 }
