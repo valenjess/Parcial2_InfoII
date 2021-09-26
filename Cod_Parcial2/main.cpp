@@ -16,7 +16,7 @@ int main()
      */
 
 
-   string filename = "../Leer_Imagen/Imagenes/rick2.jpg";
+   string filename = "../Cod_Parcial2/Imagenes/rick2.jpg";
    QImage imag( filename.c_str() );
 
    unsigned int ancho = imag.width();
@@ -26,6 +26,7 @@ int main()
    unsigned int Cmat = 8; //columnas matriz
 
    unsigned int fil = ancho/MAT;
+   int auxfil = fil;
    unsigned int colum = largo/Cmat;
 
    vector <unsigned int> Reds;
@@ -54,7 +55,7 @@ int main()
             int divisorProm = fil * colum;
             int cont = 0;
 
-            for(int index=0; index<MAT; index++){
+            for(int index=0; index<MAT*MAT; index++){
                 for(int elem=0; elem<fil; elem++){
                     for(int i=0; i<colum; i++){
                        pixelR+= Reds[elem*colum*(MAT)+(i+cont)];
@@ -72,12 +73,20 @@ int main()
                 pixelG=0;
                 pixelB=0;
 
+                if((index+1)%MAT==0){
+                    cont=largo*auxfil;
+                    auxfil += fil;
+                }
+                else{
                 cont=cont+colum;
+
+                }
 
             }
 
+                cont=cont+colum;
             for(int i=0; i<Rmat.size(); i++){
-                cout<<Rmat[i]<<endl;
+                cout<<i<<" "<<Rmat[i]<<endl;
             }
 
             cout<<"-----"<<endl;
