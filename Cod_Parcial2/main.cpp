@@ -25,44 +25,6 @@ int main()
     Submuestreo(Info);
     EscrituraArchivo(Info);
 
-   ///MEDIDAS NO DIVISIBLES
-   ///   int MAT = 8;
-    int largimag=20;
-    int anchimag=25;
-
-    int moduloF = largimag%MAT;
-    int cocienteF = largimag/MAT;
-
-    int moduloC = anchimag%MAT;
-    int cocienteC = anchimag/MAT;
-
-    int vecesFil1 = moduloF;
-    int vecesFil2 = MAT - moduloF;
-    int pixFil1 = cocienteF +1 ;
-    int pixFil2 = cocienteF ;
-
-    int vecesCol1 =  moduloC;
-    int vecesCol2 = MAT - moduloC;
-    int pixCol1 = cocienteC + 1;
-    int pixCol2 = MAT - moduloC;
-
-    int objeto = 0;
-    int cont = 0;
-
-
-    for (int indi=0; indi<MAT*MAT; indi++){
-
-        for(int elem=0; elem<MAT; elem++){
-            for(int indexF=0; indexF<vecesFil1; indexF++){
-                 for(int indexC=0; indexC<vecesCol1; indexC++){
-
-                    objeto = Rojo[indexF*pixCol1*(MAT)+(indexC+cont)];
-
-                }
-            }
-        }
-    }
-
 
 
     return 0;
@@ -195,5 +157,139 @@ void Submuestreo( array<array<array<int,8>,8>,3> &Info){
 
              }
 
+}
+
+void Submuestreo1( array<array<array<int,8>,8>,3> &Datos){
+
+    string filename = "../submuestreo/Imagenes/cosa.jpg";
+    QImage imag( filename.c_str() );
+
+
+
+        unsigned int ancho = imag.width();
+        unsigned int largo = imag.height();
+
+        int dimension = 8;
+        int residuoX = ancho % dimension, residuoY = largo % dimension;
+
+        int fil= largo/dimension;
+        int colum = ancho/dimension;
+
+
+        int cont=0,contC=0,contPosiMa=0;
+
+        int contadorX=0,contadorY=0;
+
+        int espacioY = 0;
+        for(int index=0; index<dimension*dimension; index++){
+            int  pixelR=0,pixelG=0,pixelB=0;
+
+            if (cont < residuoY){
+             int espacioX=0;
+             for(int elem=0; elem<fil+1; elem++){
+
+                 if(contC<residuoX){
+                     for(int i=0; i<colum+1; i++){
+                        pixelR+= imag.pixelColor(i+contadorX,elem+contadorY).red();
+                        pixelG+= imag.pixelColor(i+contadorX,elem+contadorY).green();  //Acumuladores info pixeles
+                        pixelB+= imag.pixelColor(i+contadorX,elem+contadorY).blue();
+
+                     }
+
+                     espacioX++;
+
+                 }
+                 //cont++;
+                 else{
+                      for(int i=0; i<colum; i++){
+                          pixelR+= imag.pixelColor(i+contadorX,elem+contadorY).red();
+                          pixelG+= imag.pixelColor(i+contadorX,elem+contadorY).green();  //Acumuladores info pixeles
+                          pixelB+= imag.pixelColor(i+contadorX,elem+contadorY).blue();
+
+                      }
+                 }
+             }
+                if (espacioX > 0 ){
+                    contadorX+=(colum+1);
+                }
+                else{
+                    contadorX+=colum;
+                }
+
+                espacioY++;
+             }
+            else{
+                int espacioX=0;
+                for(int elem=0; elem<fil; elem++){
+
+                    if(contC<residuoX){
+                        for(int i=0; i<colum+1; i++){
+                            pixelR+= imag.pixelColor(i+contadorX,elem+contadorY).red();
+                            pixelG+= imag.pixelColor(i+contadorX,elem+contadorY).green();  //Acumuladores info pixeles
+                            pixelB+= imag.pixelColor(i+contadorX,elem+contadorY).blue();
+
+                        }
+                        espacioX++;
+                    }
+
+                    else{
+                         for(int i=0; i<colum; i++){
+                             pixelR+= imag.pixelColor(i+contadorX,elem+contadorY).red();
+                             pixelG+= imag.pixelColor(i+contadorX,elem+contadorY).green();  //Acumuladores info pixeles
+                             pixelB+= imag.pixelColor(i+contadorX,elem+contadorY).blue();
+
+                         }
+                    }
+                }
+                if (espacioX > 0 ){
+                    contadorX+=(colum+1);
+                }
+                else{
+                    contadorX+=colum;
+                }
+            }
+
+
+            if(cont < residuoY and contC<residuoX){
+                Datos[0][cont][contPosiMa] = pixelR/((fil+1)*(colum+1));
+                Datos[1][cont][contPosiMa] = pixelG/((fil+1)*(colum+1));
+                Datos[2][cont][contPosiMa] = pixelB/((fil+1)*(colum+1));
+            }
+            else if(cont < residuoY and contC>=residuoX){
+                Datos[0][cont][contPosiMa] = pixelR/((fil+1)*(colum));
+                Datos[1][cont][contPosiMa] = pixelG/((fil+1)*(colum));
+                Datos[2][cont][contPosiMa] = pixelB/((fil+1)*(colum));
+            }
+            else if (cont >= residuoY and contC<residuoX){
+                Datos[0][cont][contPosiMa] = pixelR/((fil)*(colum+1));
+                Datos[1][cont][contPosiMa] = pixelG/((fil)*(colum+1));
+                Datos[2][cont][contPosiMa] = pixelB/((fil)*(colum+1));
+            }
+            else{
+                Datos[0][cont][contPosiMa] = pixelR/((fil)*(colum));
+                Datos[1][cont][contPosiMa] = pixelG/((fil)*(colum));
+                Datos[2][cont][contPosiMa] = pixelB/((fil)*(colum));
+            }
+            if ((index+1) % 8 == 0 and (index+1 )!= 0){
+                contadorX=0;
+                contC=-1;
+
+                if (espacioY < residuoY ){
+                    contadorY+=(fil+1);
+                }
+                else{
+                    contadorY+=fil;
+                }
+                cont++;
+            }
+
+            contC++;
+            contPosiMa++;
+            if(contPosiMa==8){
+                contPosiMa=0;
+            }
+
+        }
 
 }
+
