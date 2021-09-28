@@ -154,6 +154,10 @@ Makefile: ../Cod_Parcial2/Cod_Parcial2.pro ../../../InformaticaII/6.0.2/mingw81_
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/qt_config.prf \
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/win32-g++/qmake.conf \
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/spec_post.prf \
+<<<<<<< HEAD
+=======
+		.qmake.stash \
+>>>>>>> origin/main
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/exclusive_builds.prf \
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/toolchain.prf \
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/default_pre.prf \
@@ -180,7 +184,10 @@ Makefile: ../Cod_Parcial2/Cod_Parcial2.pro ../../../InformaticaII/6.0.2/mingw81_
 		../Cod_Parcial2/Cod_Parcial2.pro \
 		../../../InformaticaII/6.0.2/mingw81_64/lib/Qt6Gui.prl \
 		../../../InformaticaII/6.0.2/mingw81_64/lib/Qt6Core.prl \
+<<<<<<< HEAD
 		.qmake.stash \
+=======
+>>>>>>> origin/main
 		../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\Cod_Parcial2\Cod_Parcial2.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/spec_pre.prf:
@@ -267,6 +274,10 @@ Makefile: ../Cod_Parcial2/Cod_Parcial2.pro ../../../InformaticaII/6.0.2/mingw81_
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/qt_config.prf:
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/win32-g++/qmake.conf:
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/spec_post.prf:
+<<<<<<< HEAD
+=======
+.qmake.stash:
+>>>>>>> origin/main
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/exclusive_builds.prf:
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/toolchain.prf:
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/default_pre.prf:
@@ -293,7 +304,10 @@ Makefile: ../Cod_Parcial2/Cod_Parcial2.pro ../../../InformaticaII/6.0.2/mingw81_
 ../Cod_Parcial2/Cod_Parcial2.pro:
 ../../../InformaticaII/6.0.2/mingw81_64/lib/Qt6Gui.prl:
 ../../../InformaticaII/6.0.2/mingw81_64/lib/Qt6Core.prl:
+<<<<<<< HEAD
 .qmake.stash:
+=======
+>>>>>>> origin/main
 ../../../InformaticaII/6.0.2/mingw81_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Cod_Parcial2\Cod_Parcial2.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
