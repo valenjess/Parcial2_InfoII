@@ -253,6 +253,7 @@ void Redimensionar::Submuestreo1()
                 Datos[2][cont][contPosiMa] = pixelB/((fil+1)*(colum+1));
             }
             else if(cont < residuoY and contC>=residuoX){
+
                 Datos[0][cont][contPosiMa] = pixelR/((fil+1)*(colum));
                 Datos[1][cont][contPosiMa] = pixelG/((fil+1)*(colum));
                 Datos[2][cont][contPosiMa] = pixelB/((fil+1)*(colum));

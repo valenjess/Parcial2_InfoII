@@ -4,7 +4,7 @@
 #include <vector>
 #include "redimensionar.h"
 
-#define dimension 8
+#define dimension  8
 
 using namespace std;
 
@@ -21,27 +21,30 @@ using namespace std;
 
 int main()
 {
-   string txt="Mex.jpg";
+   string txt="";
+
+
    cout<<"Ingrese el nombre de la imagen a procesar"<<endl;
+   cout<<" El nombre de la imagen + extension  "<<endl;
+   cout<<"Ejemplo: imagen.jpg"<<endl;
+   cout<<"===>";
    cin>>txt;
 
    Redimensionar obj1(txt);
 
    QImage imag ((obj1.getFilename()).c_str());
 
-   unsigned int ancho = imag.width();
-   unsigned int largo = imag.height();
+   int ancho = imag.width();
+   int largo = imag.height();
 
-   unsigned int moduloAn = ancho%dimension;
-   unsigned int moduloLa = largo%dimension;
 
-   if( ancho && largo > dimension){
+   if( (ancho > dimension) && (largo > dimension)){
 
         obj1.Submuestreo1();
 
     }
 
-   else if ((largo && ancho) < dimension){
+   else if ((largo < dimension) && (ancho < dimension)){
 
         obj1.SobreMuestreo();
    }
