@@ -1,35 +1,129 @@
 #include <iostream>
 #include <QImage>
 #include <fstream>
+#include <vector>
+
+#define dimension 8
+
+
 
 using namespace std;
 
 
-void EscrituraArchivo(array<array<array<int,8>,8>,3> Info);
+void SobreMuestreo( array<array<array<int,8>,8>,3> &Datos);
+void EscrituraArchivo(array<array<array<int,8>,8>,3> Datos);
 void Submuestreo( array<array<array<int,8>,8>,3> &Info);
+void Submuestreo1( array<array<array<int,8>,8>,3> &Datos);
+
 
 int main()
-{   ///MEDIDAS IMAGEN  DIVISIBLES ENTRE 16 (MEDIDAS MATRIZ RGB'S)
-    // IDEA -- CREAR UN CONTENEDOR BIDIMENSIONAL- VECTOR- Y GUARDAR LA INFO RGB DE CADA PIXEL
-    //MATRIZ RGB'S 8*8
-    //SUBMUESTREO
-    /* imagen = 100*50
-     * 100/8= 12 --> 12*8 = 96
-     * modulo = 4         +  4
-     * 4 grupos de 12 pixe
-     * 4 de  13 pixe
-     */
+{
 
-    array<array<array<int,8>,8>,3> Info{};
 
+    array<array<array<int,8>,8>,3> Datos{};
+
+    SobreMuestreo(Datos);
+
+    EscrituraArchivo(Datos);
+  
     Submuestreo(Info);
+  
     EscrituraArchivo(Info);
-
 
 
     return 0;
 }
 
+                                             
+ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
+{
+    string filename = "../Cod_Parcial2/Imagenes/cosa.jpg";
+    QImage imag( filename.c_str() );
+
+
+    unsigned int ancho = imag.width();
+    unsigned int largo = imag.height();
+
+    int cantPixRepx=dimension/ancho;
+    int cantPixRepY=dimension/largo;
+
+    int residuoX = dimension % ancho, residuoY = dimension % largo;
+
+
+    if (residuoX == 0 && residuoY ==0){
+        int cont=0;
+        for (int i =0;i < imag.width();i++){
+            vector<int> RedX,GreenX,BlueX;
+            for (int j =0; j < imag.height();j++){
+
+
+                for (int l=0;l<cantPixRepx;l++){
+                    RedX.push_back(imag.pixelColor(j,i).red());
+                    GreenX.push_back(imag.pixelColor(j,i).green());
+                    BlueX.push_back(imag.pixelColor(j,i).blue());
+                }
+
+            }
+            int longitud=RedX.size();
+            for(int i=0;i < cantPixRepY;i++){
+                for(int j=0;j<longitud;j++){
+                    //Red.push_back(RedX[j]);
+                    Datos[0][cont][j]=RedX[j];//rojo
+                    //Green.push_back(GreenX[j]);
+                    Datos[1][cont][j]=GreenX[j];//verde
+                    //Blue.push_back(BlueX[j]);
+                    Datos[2][cont][j]=BlueX[j];//azul
+                }
+                cont++;
+            }
+        }
+    }
+
+    else {
+        int cont=0,contY=0;
+        for (unsigned int i =0;i < largo;i++){
+            vector<int> RedX,GreenX,BlueX;
+            int contX = 0;
+            for (unsigned int j =0; j < ancho;j++){
+
+                for (int l=0;l<cantPixRepx;l++){
+                    cout<<"[ "<<imag.pixelColor(j,i).red() <<" , "<<imag.pixelColor(j,i).green()<<" , "<<imag.pixelColor(j,i).blue()<<endl;
+                    RedX.push_back(imag.pixelColor(j,i).red());
+                    GreenX.push_back(imag.pixelColor(j,i).green());
+                    BlueX.push_back(imag.pixelColor(j,i).blue());
+                }
+                if (contX < residuoX){
+                    RedX.push_back(imag.pixelColor(j,i).red());
+                    GreenX.push_back(imag.pixelColor(j,i).green());
+                    BlueX.push_back(imag.pixelColor(j,i).blue());
+                    contX++;
+                }
+            }
+            int longitud=RedX.size();
+            if(contY < residuoY){
+                for( int i = 0; i < ( cantPixRepY + 1 ); i++){
+                    for( int j = 0; j < longitud; j++){
+                        Datos[0][cont][j]=RedX[j];//rojo
+                        Datos[1][cont][j]=GreenX[j];//verde
+                        Datos[2][cont][j]=BlueX[j];//azul
+                    }
+                    cont++;
+                }
+                contY++;
+            }
+            else{
+                for(int i=0;i < cantPixRepY;i++){
+                    for(int j=0;j<longitud;j++){
+                        Datos[0][cont][j]=RedX[j];//rojo
+                        Datos[1][cont][j]=GreenX[j];//verde
+                        Datos[2][cont][j]=BlueX[j];//azul
+                    }
+                 cont++;
+                }
+            }
+        }
+    }
+}
 
 void EscrituraArchivo(array<array<array<int,8>,8>,3> Datos){
     string contenido;
@@ -73,7 +167,20 @@ void EscrituraArchivo(array<array<array<int,8>,8>,3> Datos){
 
 }
 
+
 void Submuestreo( array<array<array<int,8>,8>,3> &Info){
+  
+    ///MEDIDAS IMAGEN  DIVISIBLES ENTRE 16 (MEDIDAS MATRIZ RGB'S)
+    // IDEA -- CREAR UN CONTENEDOR BIDIMENSIONAL- VECTOR- Y GUARDAR LA INFO RGB DE CADA PIXEL
+    //MATRIZ RGB'S 8*8
+    //SUBMUESTREO
+    /* imagen = 100*50
+     * 100/8= 12 --> 12*8 = 96
+     * modulo = 4         +  4
+     * 4 grupos de 12 pixe
+     * 4 de  13 pixe
+     */
+
 
 
     string filename = "../Cod_Parcial2/Imagenes/Japon.jpg";
