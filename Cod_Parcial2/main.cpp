@@ -1,7 +1,6 @@
 #include <iostream>
 #include <QImage>
 #include <vector>
-#include <array>
 #include <fstream>
 
 #define dimension 8
@@ -61,11 +60,8 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
             int longitud=RedX.size();
             for(int i=0;i < cantPixRepY;i++){
                 for(int j=0;j<longitud;j++){
-                    //Red.push_back(RedX[j]);
-                    Datos[0][cont][j]=RedX[j];//rojo
-                    //Green.push_back(GreenX[j]);
+                    Datos[0][cont][j]=RedX[j];//roj
                     Datos[1][cont][j]=GreenX[j];//verde
-                    //Blue.push_back(BlueX[j]);
                     Datos[2][cont][j]=BlueX[j];//azul
                 }
                 cont++;
@@ -81,7 +77,6 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
             for (unsigned int j =0; j < ancho;j++){
 
                 for (int l=0;l<cantPixRepx;l++){
-                    cout<<"[ "<<imag.pixelColor(j,i).red() <<" , "<<imag.pixelColor(j,i).green()<<" , "<<imag.pixelColor(j,i).blue()<<endl;
                     RedX.push_back(imag.pixelColor(j,i).red());
                     GreenX.push_back(imag.pixelColor(j,i).green());
                     BlueX.push_back(imag.pixelColor(j,i).blue());
