@@ -14,6 +14,7 @@ using namespace std;
 void SobreMuestreo( array<array<array<int,8>,8>,3> &Datos);
 void EscrituraArchivo(array<array<array<int,8>,8>,3> Datos);
 
+
 int main()
 {
 
@@ -49,7 +50,7 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
             vector<int> RedX,GreenX,BlueX;
             for (int j =0; j < imag.height();j++){
 
-                //cout<<"[ "<<imag.pixelColor(j,i).red() <<" , "<<imag.pixelColor(j,i).green()<<" , "<<imag.pixelColor(j,i).blue()<<endl;
+
                 for (int l=0;l<cantPixRepx;l++){
                     RedX.push_back(imag.pixelColor(j,i).red());
                     GreenX.push_back(imag.pixelColor(j,i).green());
@@ -73,13 +74,14 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
     }
 
     else {
-        int cont=0;
+        int cont=0,contY=0;
         for (unsigned int i =0;i < largo;i++){
             vector<int> RedX,GreenX,BlueX;
             int contX = 0;
             for (unsigned int j =0; j < ancho;j++){
 
                 for (int l=0;l<cantPixRepx;l++){
+                    cout<<"[ "<<imag.pixelColor(j,i).red() <<" , "<<imag.pixelColor(j,i).green()<<" , "<<imag.pixelColor(j,i).blue()<<endl;
                     RedX.push_back(imag.pixelColor(j,i).red());
                     GreenX.push_back(imag.pixelColor(j,i).green());
                     BlueX.push_back(imag.pixelColor(j,i).blue());
@@ -91,7 +93,7 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
                     contX++;
                 }
             }
-            int longitud=RedX.size(),contY=0;
+            int longitud=RedX.size();
             if(contY < residuoY){
                 for( int i = 0; i < ( cantPixRepY + 1 ); i++){
                     for( int j = 0; j < longitud; j++){
@@ -101,6 +103,7 @@ void SobreMuestreo(array<array<array<int,8>,8>,3> &Datos)
                     }
                     cont++;
                 }
+                contY++;
             }
             else{
                 for(int i=0;i < cantPixRepY;i++){
